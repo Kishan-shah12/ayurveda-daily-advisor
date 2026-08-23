@@ -1,0 +1,10 @@
+/* Root app styles - scroll to top on navigation */
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+router-outlet + * {
+  flex: 1;
+}

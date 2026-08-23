@@ -1,0 +1,9 @@
+{
+  "buildCommand": "npx ng build --configuration production",
+  "outputDirectory": "dist/ayurveda-daily/browser",
+  "framework": null,
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/$1" },
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
+  ]
+}

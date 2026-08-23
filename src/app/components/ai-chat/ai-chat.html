@@ -1,0 +1,138 @@
+<!-- Floating Chat Bubble -->
+<div class="chat-widget" [class.open]="isOpen()">
+  <!-- Toggle Button -->
+  @if (!isOpen()) {
+    <button
+      class="chat-toggle"
+      (click)="toggleChat()"
+      aria-label="Open Ayurveda AI chat"
+    >
+      <span class="chat-toggle-icon">🧘</span>
+      <span class="chat-toggle-label">Ask AI</span>
+      @if (unreadCount() > 0) {
+        <span class="chat-badge">{{ unreadCount() }}</span>
+      }
+    </button>
+  }
+
+  <!-- Chat Panel -->
+  @if (isOpen()) {
+    <div class="chat-panel animate-fade-in-up">
+      <!-- Header -->
+      <div class="chat-header">
+        <div class="chat-header-info">
+          <span class="chat-header-icon">🧘</span>
+          <div>
+            <h3>Ayurveda AI</h3>
+            <span class="chat-status">
+              @if (isLoading()) {
+                Thinking...
+              } @else {
+                Online • Ask in any language
+              }
+            </span>
+          </div>
+        </div>
+        <div class="chat-header-actions">
+          <button class="chat-action-btn" (click)="clearChat()" aria-label="Clear chat" title="Clear chat">
+            🗑️
+          </button>
+          <button class="chat-action-btn" (click)="closeChat()" aria-label="Close chat" title="Close chat">
+            ✕
+          </button>
+        </div>
+      </div>
+
+      <!-- Messages -->
+      <div class="chat-messages" #messagesContainer>
+        <!-- Welcome Message -->
+        @if (messages().length === 0) {
+          <div class="chat-welcome">
+            <div class="welcome-icon">🌿</div>
+            <h4>Namaste! Welcome to AyurvedaDaily AI</h4>
+            <p>
+              I'm your Ayurvedic wellness advisor. Ask me anything about doshas,
+              herbs, remedies, daily routines, or Ayurvedic nutrition.
+            </p>
+            <div class="welcome-features">
+              <span class="welcome-tag">🌐 Multi-language</span>
+              <span class="welcome-tag">🌿 Herbs & Remedies</span>
+              <span class="welcome-tag">🧪 Dosha Guidance</span>
+              <span class="welcome-tag">🌅 Daily Routines</span>
+            </div>
+            <div class="welcome-suggestions">
+              <p class="suggestions-label">Try asking:</p>
+              <button class="suggestion-btn" (click)="inputText.set('What foods are best for Pitta dosha?'); sendMessage()">
+                What foods are best for Pitta dosha?
+              </button>
+              <button class="suggestion-btn" (click)="inputText.set('How can Ashwagandha help with stress?'); sendMessage()">
+                How can Ashwagandha help with stress?
+              </button>
+              <button class="suggestion-btn" (click)="inputText.set('What is an ideal Ayurvedic morning routine?'); sendMessage()">
+                What is an ideal morning routine?
+              </button>
+            </div>
+          </div>
+        }
+
+        <!-- Chat Messages -->
+        @for (msg of messages(); track msg.id) {
+          <div class="chat-message" [class]="'chat-message--' + msg.role">
+            @if (msg.role === 'assistant') {
+              <span class="message-avatar">🧘</span>
+            }
+            <div class="message-bubble" [class]="'bubble--' + msg.role">
+              <div class="message-text" [innerHTML]="formatMessage(msg.text)"></div>
+              <span class="message-time">
+                {{ msg.timestamp | date:'shortTime' }}
+              </span>
+            </div>
+          </div>
+        }
+
+        <!-- Typing Indicator -->
+        @if (isLoading()) {
+          <div class="chat-message chat-message--assistant">
+            <span class="message-avatar">🧘</span>
+            <div class="message-bubble bubble--assistant typing-bubble">
+              <div class="typing-indicator">
+                <span class="typing-dot"></span>
+                <span class="typing-dot"></span>
+                <span class="typing-dot"></span>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Input Area -->
+      <div class="chat-input-area">
+        <div class="chat-input-wrapper">
+          <textarea
+            #messageInput
+            class="chat-input"
+            [value]="inputText()"
+            (input)="onInputChange($event)"
+            (keydown)="onKeyDown($event)"
+            placeholder="Ask about Ayurveda..."
+            rows="1"
+            [disabled]="isLoading()"
+          ></textarea>
+          <button
+            class="chat-send-btn"
+            (click)="sendMessage()"
+            [disabled]="!inputText().trim() || isLoading()"
+            aria-label="Send message"
+          >
+            @if (isLoading()) {
+              <span class="send-spinner"></span>
+            } @else {
+              ➤
+            }
+          </button>
+        </div>
+        <span class="chat-disclaimer">AI responses are informational only, not medical advice.</span>
+      </div>
+    </div>
+  }
+</div>

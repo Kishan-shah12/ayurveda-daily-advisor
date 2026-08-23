@@ -1,0 +1,195 @@
+/* ============================================
+   Herbs Page Styles
+   ============================================ */
+
+/* Re-use page header from remedies */
+.page-header {
+  text-align: center;
+  padding: var(--space-3xl) 0 var(--space-xl);
+  background: linear-gradient(180deg, #F0FFF4 0%, var(--color-bg) 100%);
+}
+
+.page-header h1 {
+  color: var(--color-primary-dark);
+  margin-bottom: var(--space-md);
+}
+
+.page-intro {
+  max-width: 600px;
+  margin: 0 auto;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-lg);
+  line-height: 1.7;
+}
+
+/* --- Herbs Grid --- */
+.herbs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-xl);
+}
+
+.herb-card {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  border: 1px solid var(--color-border);
+  transition: all var(--transition-base);
+  display: flex;
+  flex-direction: column;
+}
+
+.herb-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+.herb-card-top {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.herb-emoji {
+  font-size: 2.5rem;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-primary-lightest);
+  border-radius: var(--radius-md);
+  flex-shrink: 0;
+}
+
+.herb-title h3 {
+  font-size: var(--font-size-xl);
+  margin-bottom: 2px;
+}
+
+.herb-sanskrit {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+.herb-description {
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  margin-bottom: var(--space-lg);
+  font-size: var(--font-size-sm);
+}
+
+/* Benefits */
+.herb-benefits {
+  margin-bottom: var(--space-lg);
+}
+
+.herb-benefits h4,
+.herb-usage h4 {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  margin-bottom: var(--space-sm);
+  color: var(--color-primary);
+}
+
+.herb-benefits ul {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xs) var(--space-md);
+}
+
+.herb-benefits li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.benefit-check {
+  color: var(--color-primary-light);
+  font-weight: 700;
+  font-size: var(--font-size-sm);
+  flex-shrink: 0;
+}
+
+/* Usage */
+.herb-usage {
+  margin-bottom: var(--space-lg);
+  padding: var(--space-md);
+  background: var(--color-bg);
+  border-radius: var(--radius-sm);
+}
+
+.herb-usage p {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+/* Doshas */
+.herb-doshas {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-border);
+  margin-top: auto;
+}
+
+.dosha-label {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+/* --- Herb Disclaimer --- */
+.herb-disclaimer-section {
+  padding: 0 0 var(--space-2xl);
+}
+
+.herb-disclaimer {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-lg);
+  background: var(--color-primary-lightest);
+  border: 1px solid rgba(45, 106, 79, 0.15);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+}
+
+.herb-disclaimer .disclaimer-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.herb-disclaimer h4 {
+  font-size: var(--font-size-base);
+  color: var(--color-primary-dark);
+  margin-bottom: var(--space-sm);
+}
+
+.herb-disclaimer p {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+/* --- Mobile --- */
+@media (max-width: 768px) {
+  .herbs-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .herb-benefits ul {
+    grid-template-columns: 1fr;
+  }
+
+  .herb-disclaimer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}

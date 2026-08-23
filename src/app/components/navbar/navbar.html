@@ -1,0 +1,32 @@
+<header class="navbar" [class.scrolled]="scrolled()">
+  <div class="navbar-inner container">
+    <a routerLink="/" class="logo" (click)="closeMenu()">
+      <span class="logo-icon">🌿</span>
+      <span class="logo-text">AyurvedaDaily</span>
+    </a>
+
+    <nav class="nav-links" [class.open]="mobileMenuOpen()">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenu()">Home</a>
+      <a routerLink="/dosha-quiz" routerLinkActive="active" (click)="closeMenu()">Dosha Quiz</a>
+      <a routerLink="/remedies" routerLinkActive="active" (click)="closeMenu()">Remedies</a>
+      <a routerLink="/herbs" routerLinkActive="active" (click)="closeMenu()">Herbs</a>
+      <a routerLink="/daily-routine" routerLinkActive="active" (click)="closeMenu()">Daily Routine</a>
+      <a routerLink="/symptom-checker" routerLinkActive="active" (click)="closeMenu()">Symptom Checker</a>
+    </nav>
+
+    <a routerLink="/dosha-quiz" class="btn btn-primary btn-sm nav-cta" (click)="closeMenu()">
+      Take the Quiz
+    </a>
+
+    <button class="menu-toggle" (click)="toggleMenu()" [attr.aria-expanded]="mobileMenuOpen()" aria-label="Toggle navigation menu">
+      <span class="menu-bar" [class.open]="mobileMenuOpen()"></span>
+      <span class="menu-bar" [class.open]="mobileMenuOpen()"></span>
+      <span class="menu-bar" [class.open]="mobileMenuOpen()"></span>
+    </button>
+  </div>
+
+  <!-- Mobile overlay -->
+  @if (mobileMenuOpen()) {
+    <div class="mobile-overlay" (click)="closeMenu()"></div>
+  }
+</header>

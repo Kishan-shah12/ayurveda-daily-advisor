@@ -1,0 +1,158 @@
+/* ============================================
+   Remedies Page Styles
+   ============================================ */
+
+/* --- Page Header (shared pattern) --- */
+.page-header {
+  text-align: center;
+  padding: var(--space-3xl) 0 var(--space-xl);
+  background: linear-gradient(180deg, #F0FFF4 0%, var(--color-bg) 100%);
+}
+
+.page-header h1 {
+  color: var(--color-primary-dark);
+  margin-bottom: var(--space-md);
+}
+
+.page-intro {
+  max-width: 600px;
+  margin: 0 auto;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-lg);
+  line-height: 1.7;
+}
+
+/* --- Filters --- */
+.filter-section {
+  padding: var(--space-xl) 0;
+  position: sticky;
+  top: 60px;
+  z-index: 50;
+  background: var(--color-bg);
+}
+
+.filter-bar {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.filter-btn {
+  padding: 0.5rem 1.25rem;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  background: var(--color-bg-card);
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+  transition: all var(--transition-fast);
+}
+
+.filter-btn:hover {
+  border-color: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.filter-btn.active {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+/* --- Remedies Grid --- */
+.remedies-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-xl);
+}
+
+.remedy-card {
+  padding: var(--space-xl);
+}
+
+.remedy-header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.remedy-emoji {
+  font-size: 2.5rem;
+  flex-shrink: 0;
+}
+
+.remedy-header h3 {
+  font-size: var(--font-size-lg);
+  margin-bottom: 2px;
+}
+
+.remedy-category {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+}
+
+/* Body */
+.remedy-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.remedy-detail h4 {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.remedy-detail p {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+/* Doshas */
+.remedy-doshas {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-border);
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: var(--space-4xl) 0;
+  color: var(--color-text-muted);
+}
+
+.empty-emoji {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: var(--space-md);
+}
+
+/* --- Mobile --- */
+@media (max-width: 768px) {
+  .remedies-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-bar {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    padding-bottom: var(--space-sm);
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .filter-btn {
+    flex-shrink: 0;
+  }
+}

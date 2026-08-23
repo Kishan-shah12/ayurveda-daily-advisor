@@ -1,0 +1,183 @@
+<main>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-bg-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+    </div>
+    <div class="container hero-content">
+      <span class="hero-badge animate-fade-in">🌿 Ancient Wisdom, Modern Wellness</span>
+      <h1 class="hero-title animate-fade-in-up">
+        Discover Your<br />
+        <span class="hero-highlight">Natural Balance</span>
+      </h1>
+      <p class="hero-subtitle animate-fade-in-up stagger-1">
+        Explore the timeless wisdom of Ayurveda. Understand your unique dosha,
+        find personalized remedies, and build daily habits that support your mind,
+        body, and spirit.
+      </p>
+      <div class="hero-actions animate-fade-in-up stagger-2">
+        <a routerLink="/dosha-quiz" class="btn btn-primary btn-lg">
+          Take the Dosha Quiz ✨
+        </a>
+        <a routerLink="/herbs" class="btn btn-secondary">
+          Explore Herbs
+        </a>
+      </div>
+      <div class="hero-stats animate-fade-in-up stagger-3">
+        <div class="stat">
+          <span class="stat-number">5000+</span>
+          <span class="stat-label">Years of Wisdom</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-number">3</span>
+          <span class="stat-label">Unique Doshas</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-number">100+</span>
+          <span class="stat-label">Natural Remedies</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dosha Overview -->
+  <section class="section dosha-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">The Foundation of Ayurveda</span>
+        <h2>The Three Doshas</h2>
+        <p class="section-subtitle">
+          Every person has a unique combination of three fundamental energies called doshas.
+          Understanding yours is the first step toward personalized wellness.
+        </p>
+      </div>
+
+      <div class="dosha-grid">
+        @for (dosha of doshas; track dosha.name) {
+          <div class="dosha-card" [class]="'dosha-card--' + dosha.color">
+            <div class="dosha-card-header">
+              <span class="dosha-emoji">{{ dosha.emoji }}</span>
+              <h3>{{ dosha.name }}</h3>
+              <span class="dosha-elements">{{ dosha.elements }}</span>
+            </div>
+            <p class="dosha-description">{{ dosha.description }}</p>
+            <div class="dosha-qualities">
+              @for (quality of dosha.qualities; track quality) {
+                <span class="quality-tag" [class]="'quality-tag--' + dosha.color">{{ quality }}</span>
+              }
+            </div>
+          </div>
+        }
+      </div>
+
+      <div class="dosha-cta">
+        <p>Not sure which dosha is dominant for you?</p>
+        <a routerLink="/dosha-quiz" class="btn btn-primary">
+          Find Your Dosha →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features / Explore -->
+  <section class="section features-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Your Wellness Journey</span>
+        <h2>Explore Ayurvedic Wellness</h2>
+        <p class="section-subtitle">
+          Practical guidance rooted in ancient knowledge — from natural remedies and powerful herbs
+          to daily routines designed to bring balance and vitality.
+        </p>
+      </div>
+
+      <div class="features-grid">
+        @for (feature of features; track feature.title) {
+          <div class="feature-card card">
+            <span class="feature-emoji">{{ feature.emoji }}</span>
+            <h3>{{ feature.title }}</h3>
+            <p>{{ feature.description }}</p>
+            <a [routerLink]="feature.link" class="feature-link">
+              {{ feature.linkText }} →
+            </a>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Philosophy Section -->
+  <section class="section philosophy-section">
+    <div class="container">
+      <div class="philosophy-content">
+        <div class="philosophy-text">
+          <span class="section-label">The Ayurvedic Way</span>
+          <h2>Balance Is the Key to Health</h2>
+          <p>
+            Ayurveda, the "Science of Life," is one of the world's oldest holistic healing systems.
+            Originating in India over 5,000 years ago, it teaches that health is a state of balance
+            between mind, body, and spirit.
+          </p>
+          <p>
+            Rather than treating symptoms, Ayurveda focuses on understanding your unique constitution
+            and creating harmony through diet, lifestyle, herbs, and daily practices.
+          </p>
+          <ul class="philosophy-list">
+            <li>
+              <span class="philosophy-icon">🧘</span>
+              <div>
+                <strong>Mind-Body Connection</strong>
+                <span>Your mental state directly influences physical health</span>
+              </div>
+            </li>
+            <li>
+              <span class="philosophy-icon">🍃</span>
+              <div>
+                <strong>Natural Healing</strong>
+                <span>Working with nature, not against it, for lasting wellness</span>
+              </div>
+            </li>
+            <li>
+              <span class="philosophy-icon">⚖️</span>
+              <div>
+                <strong>Individual Balance</strong>
+                <span>What works for one person may not work for another</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="philosophy-visual">
+          <div class="visual-circle">
+            <div class="visual-ring ring-1">
+              <span>Mind</span>
+            </div>
+            <div class="visual-ring ring-2">
+              <span>Body</span>
+            </div>
+            <div class="visual-ring ring-3">
+              <span>Spirit</span>
+            </div>
+            <div class="visual-center">☯️</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="cta-banner">
+    <div class="container">
+      <div class="cta-content">
+        <h2>Begin Your Ayurvedic Journey Today</h2>
+        <p>Take our free dosha quiz to discover your unique constitution and receive personalized wellness guidance.</p>
+        <a routerLink="/dosha-quiz" class="btn btn-primary btn-lg">
+          Start the Quiz — It's Free ✨
+        </a>
+      </div>
+    </div>
+  </section>
+</main>

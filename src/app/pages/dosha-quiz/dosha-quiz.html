@@ -1,0 +1,193 @@
+<main class="quiz-page">
+  @if (!quizComplete()) {
+    <!-- Quiz Header -->
+    <section class="quiz-header">
+      <div class="container">
+        <span class="section-label">Discover Your Constitution</span>
+        <h1>What's Your Dosha?</h1>
+        <p class="quiz-intro">
+          Answer 10 simple questions about your body, mind, and habits to discover your
+          dominant Ayurvedic dosha. This helps personalize your wellness journey.
+        </p>
+      </div>
+    </section>
+
+    <!-- Progress Bar -->
+    <div class="container">
+      <div class="progress-section">
+        <div class="progress-info">
+          <span>Question {{ currentQuestion() + 1 }} of {{ totalQuestions }}</span>
+          <span>{{ progress() }}% Complete</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="progress()"></div>
+        </div>
+        <div class="progress-dots">
+          @for (q of questions; track q.id; let i = $index) {
+            <button
+              class="progress-dot"
+              [class.active]="i === currentQuestion()"
+              [class.answered]="isAnswered(q.id)"
+              (click)="goToQuestion(i)"
+              [attr.aria-label]="'Go to question ' + (i + 1)"
+            ></button>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Question Card -->
+    <div class="container">
+      <div class="question-container">
+        @for (q of questions; track q.id; let i = $index) {
+          @if (i === currentQuestion()) {
+            <div class="question-card animate-fade-in">
+              <span class="question-category">{{ q.category }}</span>
+              <h2 class="question-text">{{ q.question }}</h2>
+
+              <div class="options-list">
+                @for (option of q.options; track option.dosha) {
+                  <button
+                    class="option-btn"
+                    [class.selected]="getSelectedDosha(q.id) === option.dosha"
+                    [class]="'option-btn--' + option.dosha"
+                    (click)="selectAnswer(q.id, option.dosha)"
+                  >
+                    <span class="option-radio">
+                      @if (getSelectedDosha(q.id) === option.dosha) {
+                        <span class="option-radio-fill"></span>
+                      }
+                    </span>
+                    <span class="option-text">{{ option.text }}</span>
+                  </button>
+                }
+              </div>
+
+              <div class="question-nav">
+                <button
+                  class="btn btn-secondary btn-sm"
+                  (click)="prevQuestion()"
+                  [disabled]="currentQuestion() === 0"
+                >
+                  ← Previous
+                </button>
+
+                @if (currentQuestion() < totalQuestions - 1) {
+                  <button
+                    class="btn btn-primary btn-sm"
+                    (click)="nextQuestion()"
+                    [disabled]="!isAnswered(q.id)"
+                  >
+                    Next →
+                  </button>
+                } @else {
+                  <button
+                    class="btn btn-primary"
+                    (click)="submitQuiz()"
+                    [disabled]="!allAnswered"
+                  >
+                    See My Results ✨
+                  </button>
+                }
+              </div>
+            </div>
+          }
+        }
+      </div>
+    </div>
+  } @else {
+    <!-- Results -->
+    @if (result(); as r) {
+      <section class="results-section animate-fade-in-up">
+        <div class="container">
+          <div class="results-header">
+            <span class="section-label">Your Dosha Result</span>
+            <div class="result-emoji">{{ r.emoji }}</div>
+            <h1>You are <span [class]="'dosha-name--' + r.color">{{ r.name }}</span></h1>
+            <p class="result-elements">{{ r.elements }}</p>
+          </div>
+
+          <div class="result-content">
+            <p class="result-description">{{ r.description }}</p>
+
+            <!-- Score Breakdown -->
+            <div class="score-breakdown">
+              <h3>Your Dosha Breakdown</h3>
+              <div class="score-bars">
+                <div class="score-bar-item">
+                  <div class="score-bar-label">
+                    <span>🌬️ Vata</span>
+                    <span>{{ scores().vata }}/{{ totalQuestions }}</span>
+                  </div>
+                  <div class="score-bar-track">
+                    <div class="score-bar-fill score-bar--vata" [style.width.%]="(scores().vata / totalQuestions) * 100"></div>
+                  </div>
+                </div>
+                <div class="score-bar-item">
+                  <div class="score-bar-label">
+                    <span>🔥 Pitta</span>
+                    <span>{{ scores().pitta }}/{{ totalQuestions }}</span>
+                  </div>
+                  <div class="score-bar-track">
+                    <div class="score-bar-fill score-bar--pitta" [style.width.%]="(scores().pitta / totalQuestions) * 100"></div>
+                  </div>
+                </div>
+                <div class="score-bar-item">
+                  <div class="score-bar-label">
+                    <span>🌍 Kapha</span>
+                    <span>{{ scores().kapha }}/{{ totalQuestions }}</span>
+                  </div>
+                  <div class="score-bar-track">
+                    <div class="score-bar-fill score-bar--kapha" [style.width.%]="(scores().kapha / totalQuestions) * 100"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Characteristics & Tips -->
+            <div class="result-details-grid">
+              <div class="result-detail-card">
+                <h3>✨ Key Characteristics</h3>
+                <ul>
+                  @for (char of r.characteristics; track char) {
+                    <li>{{ char }}</li>
+                  }
+                </ul>
+              </div>
+              <div class="result-detail-card">
+                <h3>🌿 Wellness Tips</h3>
+                <ul>
+                  @for (tip of r.tips; track tip) {
+                    <li>{{ tip }}</li>
+                  }
+                </ul>
+              </div>
+            </div>
+
+            <!-- Disclaimer -->
+            <div class="result-disclaimer">
+              <p>
+                ⚕️ <strong>Disclaimer:</strong> This quiz is for informational and educational purposes only.
+                It is not a substitute for professional medical advice. Please consult a qualified Ayurvedic
+                practitioner or healthcare provider for personalized guidance.
+              </p>
+            </div>
+
+            <!-- Actions -->
+            <div class="result-actions">
+              <button class="btn btn-secondary" (click)="retakeQuiz()">
+                Retake Quiz
+              </button>
+              <a routerLink="/remedies" class="btn btn-primary">
+                Explore Remedies →
+              </a>
+              <a routerLink="/herbs" class="btn btn-secondary">
+                Browse Herbs
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    }
+  }
+</main>

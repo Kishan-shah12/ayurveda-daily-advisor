@@ -1,0 +1,80 @@
+<main>
+  <!-- Header -->
+  <section class="page-header">
+    <div class="container">
+      <span class="section-label">Dinacharya</span>
+      <h1>Your Ayurvedic Daily Routine</h1>
+      <p class="page-intro">
+        Dinacharya — the Ayurvedic daily routine — is a set of practices aligned with nature's rhythms.
+        Following these habits helps maintain balance, boost immunity, and support overall wellbeing.
+      </p>
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section class="section">
+    <div class="container">
+      <div class="timeline">
+        @for (block of routineBlocks; track block.period; let i = $index) {
+          <div class="timeline-block" [class]="'timeline-block--' + block.period.toLowerCase().replace(' ', '-')">
+            <!-- Timeline marker -->
+            <div class="timeline-marker">
+              <div class="marker-dot">
+                <span>{{ block.emoji }}</span>
+              </div>
+              @if (i < routineBlocks.length - 1) {
+                <div class="marker-line"></div>
+              }
+            </div>
+
+            <!-- Content -->
+            <div class="timeline-content">
+              <div class="timeline-header">
+                <span class="time-badge">{{ block.time }}</span>
+                <h2>{{ block.title }}</h2>
+                <p class="timeline-description">{{ block.description }}</p>
+              </div>
+
+              <div class="practices-list">
+                @for (practice of block.practices; track practice.name) {
+                  <label class="practice-item" [class.practice-completed]="completedPractices()[practice.name]">
+                    <div class="practice-checkbox">
+                      <input type="checkbox"
+                             [checked]="completedPractices()[practice.name]"
+                             (change)="togglePractice(practice.name)">
+                      <span class="checkmark"></span>
+                    </div>
+                    <span class="practice-emoji">{{ practice.emoji }}</span>
+                    <div class="practice-text">
+                      <h4>{{ practice.name }}</h4>
+                      <p>{{ practice.detail }}</p>
+                    </div>
+                    <button class="reminder-btn" (click)="setReminder($event, practice.name)" aria-label="Set reminder" title="Remind me">
+                      🔔
+                    </button>
+                  </label>
+                }
+              </div>
+
+              @if (block.doshaNote) {
+                <div class="dosha-note">
+                  <span class="dosha-note-icon">💡</span>
+                  <p><strong>Dosha Tips:</strong> {{ block.doshaNote }}</p>
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- CTA -->
+      <div class="routine-cta">
+        <h3>Not sure which dosha you are?</h3>
+        <p>Take our quick quiz to discover your dominant dosha and personalize your daily routine.</p>
+        <a routerLink="/dosha-quiz" class="btn btn-primary">
+          Take the Dosha Quiz →
+        </a>
+      </div>
+    </div>
+  </section>
+</main>

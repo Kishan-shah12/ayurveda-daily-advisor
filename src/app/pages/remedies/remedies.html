@@ -1,0 +1,79 @@
+<main>
+  <!-- Header -->
+  <section class="page-header">
+    <div class="container">
+      <span class="section-label">Natural Healing</span>
+      <h1>Ayurvedic Remedies</h1>
+      <p class="page-intro">
+        Time-tested natural remedies for everyday wellness concerns. Each remedy includes
+        ingredients, preparation, and dosha suitability so you can find what works best for you.
+      </p>
+    </div>
+  </section>
+
+  <!-- Filters -->
+  <section class="filter-section">
+    <div class="container">
+      <div class="filter-bar">
+        @for (cat of categories; track cat) {
+          <button
+            class="filter-btn"
+            [class.active]="activeFilter() === cat"
+            (click)="setFilter(cat)"
+          >
+            {{ cat }}
+          </button>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Remedies Grid -->
+  <section class="section">
+    <div class="container">
+      <div class="remedies-grid">
+        @for (remedy of filteredRemedies(); track remedy.name) {
+          <article class="remedy-card card">
+            <div class="remedy-header">
+              <span class="remedy-emoji">{{ remedy.emoji }}</span>
+              <div>
+                <h3>{{ remedy.name }}</h3>
+                <span class="remedy-category">{{ remedy.category }}</span>
+              </div>
+            </div>
+
+            <div class="remedy-body">
+              <div class="remedy-detail">
+                <h4>🧪 Ingredients</h4>
+                <p>{{ remedy.ingredients }}</p>
+              </div>
+
+              <div class="remedy-detail">
+                <h4>📋 How to Use</h4>
+                <p>{{ remedy.howToUse }}</p>
+              </div>
+
+              <div class="remedy-detail">
+                <h4>✨ Benefits</h4>
+                <p>{{ remedy.benefits }}</p>
+              </div>
+            </div>
+
+            <div class="remedy-doshas">
+              @for (dosha of remedy.doshas; track dosha) {
+                <span class="badge" [class]="'badge-' + dosha.toLowerCase()">{{ dosha }}</span>
+              }
+            </div>
+          </article>
+        }
+      </div>
+
+      @if (filteredRemedies().length === 0) {
+        <div class="empty-state">
+          <span class="empty-emoji">🔍</span>
+          <p>No remedies found for this category. Try a different filter.</p>
+        </div>
+      }
+    </div>
+  </section>
+</main>

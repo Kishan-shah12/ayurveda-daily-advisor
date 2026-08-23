@@ -1,12 +1,14 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { Navbar } from './components/navbar/navbar';
+import { Footer } from './components/footer/footer';
+import { AiChat } from './components/ai-chat/ai-chat';
+import { Feedback } from './components/feedback/feedback';
 
 @Component({
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, Navbar, Footer, AiChat, Feedback],
   selector: 'app-root',
-  styleUrl: './app.css',
   templateUrl: './app.html',
+  styleUrl: './app.css',
 })
-export class App {
-  protected readonly title = signal('ayurveda-daily');
-}
+export class App {}

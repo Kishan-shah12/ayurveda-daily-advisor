@@ -1,0 +1,75 @@
+<main>
+  <!-- Header -->
+  <section class="page-header">
+    <div class="container">
+      <span class="section-label">Nature's Pharmacy</span>
+      <h1>Ayurvedic Herbs Guide</h1>
+      <p class="page-intro">
+        Discover the healing power of Ayurvedic herbs. Each herb profile includes traditional uses,
+        health benefits, preparation methods, and which doshas they help balance.
+      </p>
+    </div>
+  </section>
+
+  <!-- Herbs Grid -->
+  <section class="section">
+    <div class="container">
+      <div class="herbs-grid">
+        @for (herb of herbs; track herb.name) {
+          <article class="herb-card">
+            <div class="herb-card-top">
+              <span class="herb-emoji">{{ herb.emoji }}</span>
+              <div class="herb-title">
+                <h3>{{ herb.name }}</h3>
+                <span class="herb-sanskrit">{{ herb.sanskrit }}</span>
+              </div>
+            </div>
+
+            <p class="herb-description">{{ herb.description }}</p>
+
+            <div class="herb-benefits">
+              <h4>Key Benefits</h4>
+              <ul>
+                @for (benefit of herb.benefits; track benefit) {
+                  <li>
+                    <span class="benefit-check">✓</span>
+                    {{ benefit }}
+                  </li>
+                }
+              </ul>
+            </div>
+
+            <div class="herb-usage">
+              <h4>How to Use</h4>
+              <p>{{ herb.usage }}</p>
+            </div>
+
+            <div class="herb-doshas">
+              <span class="dosha-label">Best for:</span>
+              @for (dosha of herb.doshas; track dosha) {
+                <span class="badge" [class]="'badge-' + dosha.toLowerCase()">{{ dosha }}</span>
+              }
+            </div>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Herb Disclaimer -->
+  <section class="herb-disclaimer-section">
+    <div class="container">
+      <div class="herb-disclaimer">
+        <span class="disclaimer-icon">🌿</span>
+        <div>
+          <h4>A Note on Herbs</h4>
+          <p>
+            While Ayurvedic herbs have been used safely for centuries, individual responses may vary.
+            Always consult a qualified Ayurvedic practitioner or healthcare provider before starting
+            any new herbal supplement, especially if you are pregnant, nursing, or on medication.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

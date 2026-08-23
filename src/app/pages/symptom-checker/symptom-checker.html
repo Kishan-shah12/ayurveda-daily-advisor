@@ -1,0 +1,48 @@
+<main>
+  <section class="page-header">
+    <div class="container">
+      <span class="section-label">AI Symptom Checker</span>
+      <h1>Find Your Remedy</h1>
+      <p class="page-intro">
+        Describe what you're experiencing, and our AI will suggest a personalized Ayurvedic home remedy.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container checker-container">
+      <div class="input-card">
+        @if (userDosha()) {
+          <div class="dosha-badge">
+            Personalizing for: <strong>{{ userDosha() | titlecase }} Dosha</strong>
+          </div>
+        }
+        <textarea 
+          class="symptom-input" 
+          [(ngModel)]="symptom" 
+          placeholder="E.g., I have a slight headache and feel stressed..."
+          rows="4">
+        </textarea>
+        <button class="btn btn-primary" (click)="checkSymptom()" [disabled]="isLoading() || !symptom().trim()">
+          {{ isLoading() ? 'Finding Remedy...' : 'Get Remedy' }}
+        </button>
+      </div>
+
+      @if (error()) {
+        <div class="error-msg">
+          {{ error() }}
+        </div>
+      }
+
+      @if (generatedRemedy()) {
+        <div class="remedy-result-card fade-in">
+          <h2>Your Ayurvedic Recommendation</h2>
+          <div class="remedy-content" [innerHTML]="formatRemedy(generatedRemedy()!)"></div>
+          <div class="disclaimer">
+            ⚠️ <strong>Disclaimer:</strong> This is an AI-generated suggestion for informational purposes only. It is not medical advice. Consult a healthcare professional for serious conditions.
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+</main>
