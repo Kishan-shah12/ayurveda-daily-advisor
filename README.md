@@ -1,59 +1,88 @@
-# AyurvedaDaily
+# 🌿 AyurvedaDaily
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.1.5.
+AyurvedaDaily is a personalized, AI-powered Ayurvedic wellness companion. It helps users discover their body constitution (Dosha), tracks their daily health routines, provides natural remedies, and features a context-aware AI chatbot that gives personalized wellness advice.
 
-## Development server
+---
 
-To start a local development server, run:
+## 🌟 Key Features
 
-```bash
-ng serve
+- **Dosha Quiz**: Discover whether you are Vata, Pitta, or Kapha-dominant. Your profile is saved locally for a highly personalized experience across the app.
+- **Context-Aware AI Chatbot**: Powered by Gemini AI. The chatbot knows your Dosha and tailors its dietary, lifestyle, and herbal advice specifically to your body type.
+- **AI Symptom Checker**: Enter a symptom (e.g., "headache" or "stress") and get an instant, AI-generated Ayurvedic home remedy specifically formulated for your Dosha.
+- **Interactive Daily Routine (Dinacharya)**: An interactive timeline of daily Ayurvedic practices. Check off practices as you complete them, and set browser notifications to remind you when it's time for your next routine.
+- **Auto-Sorting Remedies & Herbs Library**: Explore a database of natural herbs and home remedies. The list automatically sorts itself to prioritize the remedies most beneficial for your specific Dosha.
+
+---
+
+## 🏗️ Architecture & Data Flow
+
+The application uses a serverless architecture where the Angular frontend handles state management and UI, while Vercel Serverless Functions act as secure proxies for the Gemini AI APIs.
+
+```mermaid
+graph TD
+    %% Frontend Components
+    subgraph "Angular Frontend (Client)"
+        UI[User Interface]
+        Profile[Profile Service<br>LocalStorage]
+        ChatSvc[Chat Service]
+        RemedySvc[Symptom Checker]
+    end
+
+    %% Backend Serverless APIs
+    subgraph "Vercel Serverless (Backend)"
+        ApiChat[api/chat.js<br>System Prompt + History]
+        ApiRemedy[api/remedy.js<br>Symptom Prompt]
+    end
+
+    %% External APIs
+    Gemini[(Google Gemini AI<br>API)]
+
+    %% Connections
+    UI -->|Take Quiz| Profile
+    UI -->|Ask Question| ChatSvc
+    UI -->|Check Symptom| RemedySvc
+    
+    Profile -.->|Injects User Dosha| ChatSvc
+    Profile -.->|Injects User Dosha| RemedySvc
+    
+    ChatSvc -->|POST /api/chat| ApiChat
+    RemedySvc -->|POST /api/remedy| ApiRemedy
+    
+    ApiChat -->|Secure API Call| Gemini
+    ApiRemedy -->|Secure API Call| Gemini
+    
+    Gemini -->|Returns Markdown| ApiChat
+    Gemini -->|Returns Markdown| ApiRemedy
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+## 💻 Technology Stack
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- **Frontend Framework:** Angular 22 (Standalone Components)
+- **State Management:** Angular Signals
+- **Styling:** Vanilla CSS with custom CSS variables (No external UI libraries)
+- **Backend Proxy:** Vercel Serverless Functions (Node.js)
+- **AI Integration:** Google Gemini 2.0 Flash API
 
+---
+
+## 🚀 Running Locally
+
+### 1. Install Dependencies
 ```bash
-ng generate component component-name
+npm install
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
+### 2. Set Environment Variables
+You will need a Gemini API key. Create a `.env` file in the root directory:
+```env
+GEMINI_API_KEY=your_api_key_here
 ```
 
-## Building
-
-To build the project run:
-
+### 3. Run the Development Environment
+This project requires both the Angular dev server and a local Node API server to proxy the AI requests.
 ```bash
-ng build
+npm run dev:api
 ```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+*(This command concurrently starts the Angular server on `http://localhost:4200` and the local API emulator on `http://localhost:3000`, proxying requests appropriately).*
