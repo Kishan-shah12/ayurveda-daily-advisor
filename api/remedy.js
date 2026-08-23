@@ -41,35 +41,58 @@ Guidelines:
 
     const userPrompt = `I am experiencing: "${symptom}"` + (dosha ? `\nMy dominant dosha is: ${dosha}` : '');
 
-    // Call Gemini API
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+    // Priority list of models to fallback on if rate limit is hit
+    const MODELS = [
+      'gemini-3.5-flash', 
+      'gemini-3.6-flash', 
+      'gemini-2.5-flash', 
+      'gemini-3.1-flash-lite', 
+      'gemini-3.5-flash-lite'
+    ];
 
-    const geminiResponse = await fetch(geminiUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        system_instruction: {
-          parts: [{ text: systemPrompt }],
-        },
-        contents: [
-          {
-            role: 'user',
-            parts: [{ text: userPrompt }],
-          }
-        ],
-        generationConfig: {
-          temperature: 0.6,
-          maxOutputTokens: 400,
+    let data = null;
+    let lastError = null;
+
+    for (const model of MODELS) {
+      try {
+        const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+
+        const geminiResponse = await fetch(geminiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            system_instruction: {
+              parts: [{ text: systemPrompt }],
+            },
+            contents: [
+              {
+                role: 'user',
+                parts: [{ text: userPrompt }],
+              }
+            ],
+            generationConfig: {
+              temperature: 0.6,
+              maxOutputTokens: 400,
+            }
+          }),
+        });
+
+        if (geminiResponse.ok) {
+          data = await geminiResponse.json();
+          break; // Success! Break out of loop
+        } else {
+          lastError = await geminiResponse.json().catch(() => ({}));
+          console.warn(`Model ${model} failed:`, geminiResponse.status, lastError);
         }
-      }),
-    });
-
-    if (!geminiResponse.ok) {
-      const errorData = await geminiResponse.json().catch(() => ({}));
-      throw new Error(errorData.error?.message || `Gemini API error (${geminiResponse.status})`);
+      } catch (e) {
+        console.warn(`Fetch error for model ${model}:`, e);
+        lastError = { error: { message: e.message } };
+      }
     }
 
-    const data = await geminiResponse.json();
+    if (!data) {
+      throw new Error(lastError?.error?.message || 'Failed to get response from any Gemini model after fallback.');
+    }
     
     // Extract text response
     let text = '';

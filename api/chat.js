@@ -77,42 +77,70 @@ export default async function handler(req, res) {
       dynamicPrompt += `\n\nUSER CONTEXT:\nThe user has taken the Dosha quiz and their dominant dosha is ${userDosha.toUpperCase()}. Tailor your advice and recommendations to this dosha specifically when relevant.`;
     }
 
-    // Call Gemini API
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+    // Priority list of models to fallback on if rate limit is hit
+    const MODELS = [
+      'gemini-3.5-flash', 
+      'gemini-3.6-flash', 
+      'gemini-2.5-flash', 
+      'gemini-3.1-flash-lite', 
+      'gemini-3.5-flash-lite'
+    ];
 
-    const geminiResponse = await fetch(geminiUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        system_instruction: {
-          parts: [{ text: dynamicPrompt }],
-        },
-        contents,
-        generationConfig: {
-          temperature: 0.7,
-          topP: 0.9,
-          topK: 40,
-          maxOutputTokens: 1024,
-        },
-        safetySettings: [
-          { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
-          { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
-          { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
-          { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
-        ],
-      }),
-    });
+    let data = null;
+    let lastError = null;
+    let lastStatus = null;
 
-    if (!geminiResponse.ok) {
-      const errorData = await geminiResponse.text();
-      console.error('Gemini API error:', geminiResponse.status, errorData);
-      return res.status(502).json({
-        error: 'Failed to get response from Gemini',
-        detail: geminiResponse.status,
-      });
+    // Fallback Loop
+    for (const model of MODELS) {
+      try {
+        const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+        
+        const geminiResponse = await fetch(geminiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            system_instruction: {
+              parts: [{ text: dynamicPrompt }],
+            },
+            contents,
+            generationConfig: {
+              temperature: 0.7,
+              topP: 0.9,
+              topK: 40,
+              maxOutputTokens: 1024,
+            },
+            safetySettings: [
+              { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
+              { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
+              { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
+              { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
+            ],
+          }),
+        });
+
+        if (geminiResponse.ok) {
+          data = await geminiResponse.json();
+          break; // Success! Break out of the loop
+        } else {
+          lastStatus = geminiResponse.status;
+          lastError = await geminiResponse.text();
+          console.warn(`Model ${model} failed with status ${lastStatus}: ${lastError}`);
+          // If it's a 429 (Rate Limit) or 503 (Unavailable), continue to next model.
+          // For now, we will fallback on ANY error just to be safe.
+        }
+      } catch (e) {
+        console.warn(`Fetch error for model ${model}:`, e);
+        lastError = e.message;
+      }
     }
 
-    const data = await geminiResponse.json();
+    if (!data) {
+      console.error('All models failed. Last error:', lastStatus, lastError);
+      return res.status(502).json({
+        error: 'Failed to get response from Gemini after trying all fallback models.',
+        detail: lastStatus,
+      });
+    }
 
     // Extract the response text
     const responseText =
