@@ -11,6 +11,7 @@ AyurvedaDaily is a personalized, AI-powered Ayurvedic wellness companion. It hel
 - **AI Symptom Checker**: Enter a symptom (e.g., "headache" or "stress") and get an instant, AI-generated Ayurvedic home remedy specifically formulated for your Dosha.
 - **Interactive Daily Routine (Dinacharya)**: An interactive timeline of daily Ayurvedic practices. Check off practices as you complete them, and set browser notifications to remind you when it's time for your next routine.
 - **Auto-Sorting Remedies & Herbs Library**: Explore a database of natural herbs and home remedies. The list automatically sorts itself to prioritize the remedies most beneficial for your specific Dosha.
+-  **Feedback Features**: User can give according to their experiences.
 
 ---
 
