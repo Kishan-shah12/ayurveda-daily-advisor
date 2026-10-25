@@ -1,5 +1,4 @@
 {
-  "$schema": "https://raw.githubusercontent.com/ards-project/ard-spec/main/spec/schemas/ai-catalog.schema.json",
   "specVersion": "1.0",
   "host": {
     "displayName": "AyurvedaDaily",
@@ -9,7 +8,7 @@
     {
       "identifier": "urn:air:ayurvedadaily.vercel.app:api:chat",
       "displayName": "AyurvedaDaily AI Assistant",
-      "type": "application/json",
+      "type": "application/agent-card+json",
       "url": "https://ayurvedadaily.vercel.app/api/chat",
       "description": "Context-aware Ayurvedic AI health assistant providing personalized diet, herb, and wellness advice based on individual dosha constitutions.",
       "representativeQueries": [
@@ -22,7 +21,7 @@
     {
       "identifier": "urn:air:ayurvedadaily.vercel.app:api:remedy",
       "displayName": "AyurvedaDaily Symptom Remedy Generator",
-      "type": "application/json",
+      "type": "application/agent-card+json",
       "url": "https://ayurvedadaily.vercel.app/api/remedy",
       "description": "AI-powered Ayurvedic home remedy generator tailoring recommendations to specific acute symptoms and user doshas.",
       "representativeQueries": [
