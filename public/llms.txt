@@ -1,0 +1,24 @@
+# AyurvedaDaily
+
+> AyurvedaDaily is a personalized, AI-powered Ayurvedic wellness companion that helps users determine their mind-body constitution (Dosha), follow customized daily routines (Dinacharya), access natural remedies, and consult an AI wellness advisor.
+
+AyurvedaDaily translates the 5,000-year-old healing science of Ayurveda into accessible, everyday digital wellness habits. Users can discover whether their primary constitution is Vata, Pitta, or Kapha, and receive tailored lifestyle, herbal, and dietary guidance.
+
+## Core Pages
+
+- [Home](https://ayurvedadaily.vercel.app/): Wellness hub with daily Ayurvedic wisdom, dosha introduction, and quick-start guides.
+- [Dosha Quiz](https://ayurvedadaily.vercel.app/dosha-quiz): Comprehensive interactive self-assessment calculating Vata, Pitta, and Kapha percentages.
+- [Ayurvedic Remedies](https://ayurvedadaily.vercel.app/remedies): Curated home remedy library for common ailments, sorted by dosha compatibility.
+- [Herbs Guide](https://ayurvedadaily.vercel.app/herbs): Encyclopedia of Ayurvedic herbs including Ashwagandha, Tulsi, Triphala, Brahmi, and Turmeric.
+- [Daily Routine (Dinacharya)](https://ayurvedadaily.vercel.app/daily-routine): Interactive Vedic circadian routine checklist with scheduled reminder alerts.
+- [Symptom Checker](https://ayurvedadaily.vercel.app/symptom-checker): AI-powered home remedy suggestions formulated for specific user symptoms and doshas.
+
+## APIs & Machine Endpoints
+
+- [AI Chat Endpoint](https://ayurvedadaily.vercel.app/api/chat): Serverless Gemini AI endpoint providing context-aware Ayurvedic advice.
+- [Remedy Generation Endpoint](https://ayurvedadaily.vercel.app/api/remedy): Serverless Gemini AI endpoint returning structured Ayurvedic remedy protocols.
+
+## Optional
+
+- [Agentic Resource Discovery](https://ayurvedadaily.vercel.app/.well-known/ai-catalog.json): ARD machine-readable catalog of agent capabilities and endpoints.
+- [Sitemap](https://ayurvedadaily.vercel.app/sitemap.xml): XML sitemap listing all site pages and priority indexing data.

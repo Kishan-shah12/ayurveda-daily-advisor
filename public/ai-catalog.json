@@ -1,0 +1,35 @@
+{
+  "$schema": "https://raw.githubusercontent.com/ards-project/ard-spec/main/spec/schemas/ai-catalog.schema.json",
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "AyurvedaDaily",
+    "documentationUrl": "https://ayurvedadaily.vercel.app/llms.txt"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:ayurvedadaily.vercel.app:api:chat",
+      "displayName": "AyurvedaDaily AI Assistant",
+      "type": "application/json",
+      "url": "https://ayurvedadaily.vercel.app/api/chat",
+      "description": "Context-aware Ayurvedic AI health assistant providing personalized diet, herb, and wellness advice based on individual dosha constitutions.",
+      "representativeQueries": [
+        "What Ayurvedic diet is best for Pitta dosha?",
+        "How can I balance excess Vata during winter?",
+        "What are natural herbs to relieve anxiety and stress?",
+        "Can you recommend morning Dinacharya routines for Kapha?"
+      ]
+    },
+    {
+      "identifier": "urn:air:ayurvedadaily.vercel.app:api:remedy",
+      "displayName": "AyurvedaDaily Symptom Remedy Generator",
+      "type": "application/json",
+      "url": "https://ayurvedadaily.vercel.app/api/remedy",
+      "description": "AI-powered Ayurvedic home remedy generator tailoring recommendations to specific acute symptoms and user doshas.",
+      "representativeQueries": [
+        "Home remedy for persistent dry cough and throat irritation",
+        "Ayurvedic treatment for digestive bloating after meals",
+        "Natural remedies for migraine and tension headaches"
+      ]
+    }
+  ]
+}

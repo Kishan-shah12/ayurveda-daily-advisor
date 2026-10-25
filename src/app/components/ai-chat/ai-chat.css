@@ -9,6 +9,11 @@
   right: 24px;
   z-index: 9999;
   font-family: var(--font-family);
+  pointer-events: none;
+}
+
+.chat-widget {
+  pointer-events: auto;
 }
 
 /* --- Toggle Button --- */
@@ -439,9 +444,25 @@
 /* --- Mobile Responsive --- */
 @media (max-width: 480px) {
   :host {
+    bottom: 16px;
+    right: 16px;
+    left: auto;
+    pointer-events: none;
+  }
+
+  .chat-widget {
+    pointer-events: auto;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .chat-widget.open {
+    position: fixed;
     bottom: 12px;
-    right: 12px;
     left: 12px;
+    right: 12px;
+    top: auto;
+    width: auto;
   }
 
   .chat-panel {
@@ -452,7 +473,7 @@
   }
 
   .chat-toggle {
-    padding: 12px 18px;
+    padding: 10px 16px;
     font-size: 13px;
   }
 

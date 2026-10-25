@@ -1,0 +1,30 @@
+# AyurvedaDaily — Complete Platform Documentation
+
+> Comprehensive reference documentation for AyurvedaDaily, a personalized AI-powered Ayurvedic wellness platform.
+
+## Architecture
+
+AyurvedaDaily uses an Angular standalone single-page application frontend with Vercel serverless functions proxying calls to Google's Gemini models for dosha-personalized chatbot assistance and acute symptom remedy formulations.
+
+## Core Concepts & Dosha Principles
+
+- **Vata (Air & Ether/Space)**: Governs motion, nervous system, breath, and circulation. Balanced by warmth, grounding, moisture, and regularity. Recommended herbs: Ashwagandha, Ginger, Cardamom.
+- **Pitta (Fire & Water)**: Governs digestion, metabolism, energy production, and intelligence. Balanced by coolness, moderation, calm, and soothing foods. Recommended herbs: Brahmi, Shatavari, Neem, Coriander.
+- **Kapha (Earth & Water)**: Governs structure, stability, immunity, and lubrication. Balanced by stimulation, warmth, lightness, and vigor. Recommended herbs: Tulsi, Triphala, Pippali, Turmeric.
+
+## Features
+
+1. **Dosha Quiz**: An interactive evaluation assessing physical traits, digestion, stress responses, and sleep patterns to determine the user's primary and secondary Prakriti.
+2. **Context-Aware AI Chat**: Integrated conversational assistant that references the user's active dosha constitution to provide personalized lifestyle, diet, and herbal guidance.
+3. **AI Symptom Checker**: Generates customized natural remedies for acute ailments taking into account the user's constitution.
+4. **Daily Routine (Dinacharya)**: Interactive circadian routine with timed recommendations for Brahma Muhurta (morning), Madhyahna (midday), Sandhya (evening), and Ratri (night).
+5. **Herbs & Remedies Database**: Curated natural remedies and encyclopedic profiles of Ayurvedic botanicals.
+
+## Web Endpoints
+
+- Home: https://ayurvedadaily.vercel.app/
+- Dosha Quiz: https://ayurvedadaily.vercel.app/dosha-quiz
+- Remedies: https://ayurvedadaily.vercel.app/remedies
+- Herbs: https://ayurvedadaily.vercel.app/herbs
+- Daily Routine: https://ayurvedadaily.vercel.app/daily-routine
+- Symptom Checker: https://ayurvedadaily.vercel.app/symptom-checker

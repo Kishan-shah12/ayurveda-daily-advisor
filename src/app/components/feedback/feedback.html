@@ -1,5 +1,5 @@
 <!-- Floating Action Button on the left side -->
-<button class="feedback-fab" (click)="toggleModal()" aria-label="Provide Feedback">
+<button class="feedback-fab" [class.hidden]="isOpen()" (click)="toggleModal()" aria-label="Provide Feedback">
   <span class="fab-icon">💬</span>
   <span class="fab-text">Feedback</span>
 </button>
