@@ -53,41 +53,39 @@
 
 ```mermaid
 graph TD
-    %% Frontend Client
-    subgraph "Client Layer (Angular 22)"
-        UI[User Interface / Views]
-        Profile[Profile Service<br>LocalStorage Persistence]
+    %% Frontend Components
+    subgraph "Angular Frontend (Client)"
+        UI[User Interface]
+        Profile[Profile Service<br>LocalStorage]
         ChatSvc[Chat Service]
-        RemedySvc[Symptom Checker Service]
-        NotifSvc[Notification Service<br>Web Notification API]
+        RemedySvc[Symptom Checker]
     end
 
-    %% Backend Proxy
-    subgraph "Backend Proxy Layer (Node.js)"
-        ApiChat[api/chat.js<br>System Prompt + Chat History]
-        ApiRemedy[api/remedy.js<br>Symptom Assessment Engine]
+    %% Backend Serverless APIs
+    subgraph "Backend API (Node.js)"
+        ApiChat[api/chat.js<br>System Prompt + History]
+        ApiRemedy[api/remedy.js<br>Symptom Prompt]
     end
 
-    %% External Intelligence
-    Gemini[(Google Gemini AI<br>Model API)]
+    %% External APIs
+    Gemini[(Google Gemini AI<br>API)]
 
-    %% Data Flow
-    UI -->|Take Assessment| Profile
-    UI -->|Routine Tracking| NotifSvc
-    UI -->|Ask Consultation| ChatSvc
-    UI -->|Check Symptoms| RemedySvc
-
+    %% Connections
+    UI -->|Take Quiz| Profile
+    UI -->|Ask Question| ChatSvc
+    UI -->|Check Symptom| RemedySvc
+    
     Profile -.->|Injects User Dosha| ChatSvc
     Profile -.->|Injects User Dosha| RemedySvc
-
+    
     ChatSvc -->|POST /api/chat| ApiChat
     RemedySvc -->|POST /api/remedy| ApiRemedy
-
-    ApiChat -->|Secure API Key Call| Gemini
-    ApiRemedy -->|Secure API Key Call| Gemini
-
-    Gemini -->|Ayurvedic Insights (Markdown)| ApiChat
-    Gemini -->|Ayurvedic Insights (Markdown)| ApiRemedy
+    
+    ApiChat -->|Secure API Call| Gemini
+    ApiRemedy -->|Secure API Call| Gemini
+    
+    Gemini -->|Returns Markdown| ApiChat
+    Gemini -->|Returns Markdown| ApiRemedy
 ```
 
 ---
