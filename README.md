@@ -121,6 +121,8 @@ AyurvedaDaily/
 │   ├── index.html              # HTML document root
 │   └── styles.css              # Global styles & Ayurvedic color tokens
 ├── package.json                # Project dependencies and run scripts
+├── CONTRIBUTING.md            # Guidelines for community contributions
+├── CONTRIBUTORS.md            # Contributor directory & attribution rights
 ├── LICENSE                     # MIT License specification
 └── README.md                   # Project documentation
 ```
@@ -133,8 +135,8 @@ Follow these steps to run the application locally on your machine:
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-username/ayurveda-daily.git
-cd ayurveda-daily
+git clone https://github.com/Kishan-shah12/ayurveda-daily-advisor.git
+cd ayurveda-daily-advisor
 ```
 
 ### 2. Install Dependencies
@@ -164,6 +166,16 @@ npm run dev:api
 
 - **API Key Protection:** The client bundle never exposes your Google Gemini API key. All AI queries pass through a dedicated Node.js backend proxy.
 - **Privacy-First Storage:** User Dosha profiles and quiz answers are stored strictly in client-side `localStorage`, ensuring personal health information stays on your device.
+
+---
+
+## 🤝 Contributing & Community
+
+Contributions make the open-source community a wonderful place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+- Please read our [**Contributing Guidelines**](file:///Users/kishansah/Ayruveda/CONTRIBUTING.md) for details on code style, branch naming conventions, and the pull request process.
+- See [**CONTRIBUTORS.md**](file:///Users/kishansah/Ayruveda/CONTRIBUTORS.md) to discover everyone who has helped build AyurvedaDaily and how to add your name!
+- By contributing, you agree that your code will be licensed under the project's [MIT License](file:///Users/kishansah/Ayruveda/LICENSE).
 
 ---
 
