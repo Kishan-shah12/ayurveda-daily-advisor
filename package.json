@@ -1,6 +1,8 @@
 {
   "name": "ayurveda-daily",
   "version": "0.0.0",
+  "author": "Kishan Sah <kishansah574@gmail.com>",
+  "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

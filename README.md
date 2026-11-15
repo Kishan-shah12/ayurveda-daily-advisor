@@ -87,3 +87,11 @@ This project requires both the Angular dev server and a local Node API server to
 npm run dev:api
 ```
 *(This command concurrently starts the Angular server on `http://localhost:4200` and the local API emulator on `http://localhost:3000`, proxying requests appropriately).*
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](file:///Users/kishansah/Ayruveda/LICENSE) file for details.
+
+Copyright (c) 2026 Kishan Sah. All rights reserved.
